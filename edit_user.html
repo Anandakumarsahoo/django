@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit User</title>
+</head>
+<body style="font-family: Arial; padding: 20px;">
+    <h2>Edit User: {{ user_obj.username }}</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <label>First Name:</label><br>
+        <input type="text" name="first_name" value="{{ user_obj.first_name }}"><br><br>
+
+        <label>Last Name:</label><br>
+        <input type="text" name="last_name" value="{{ user_obj.last_name }}"><br><br>
+
+        <label>Username:</label><br>
+        <input type="text" name="username" value="{{ user_obj.username }}"disable<br><br>
+
+        <label>Email:</label><br>
+        <input type="email" name="email" value="{{ user_obj.email }}"><br><br>
+
+        <button type="submit">Update User</button>
+        <a href="{% url 'userlist' %}">Cancel</a>
+    </form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slide Navbar</title>
+	{% comment %} <link rel="stylesheet" type="text/css" href="slide navbar style.css"> {% endcomment %}
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+	<div class="main">  	
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+			<div class="signup">
+				<form class="login" method="POST">
+        {% csrf_token %}
+  <h2>Welcome, User!</h2>
+  <p>Please log in</p>
+  <input type="text" name="name" placeholder="User Name" />
+  <input type="password"name="password" placeholder="Password" />
+  <input type="submit" value="Log In" />
+  <div class="links">
+    <a href="#">Forgot password</a>
+    <a href="{% url 'register' %}">Register</a>
+  </div>
+</form>
+					
+			</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+
+    <table width="100%" border="0" cellpadding="15">
+        <tr>
+            <td align="left">
+                <a href="{% url 'dashboard' %}">Home</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="#">Menu</a>
+                &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
+               <a href="{% url 'userlist' %}">View All Users</a>
+                
+            </td>
+
+            <td align="right">
+                <strong>My Profile:</strong> {{ user.username }}
+            </td>
+        </tr>
+    </table>
+
+    <hr size="1" color="#ccc">
+
+    <div align="center" style="margin-top: 100px;">
+        <h1>Welcome to Dashboard</h1>
+        <p>Hello, {{ user.first_name }}</p>
+    </div>
+
+</body>
+</html>
