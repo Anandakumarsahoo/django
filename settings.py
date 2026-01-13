@@ -120,4 +120,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
+# settings.py
+LOGIN_REDIRECT_URL = '/dashboard/' # Redirect to homepage after login
+LOGOUT_REDIRECT_URL = '/' # Redirect to homepage after logout
+LOGIN_URL = '/' # URL for the login page
+
 

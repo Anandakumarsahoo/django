@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import logout
+
 
 # Create your views here.
 
@@ -43,16 +45,17 @@ def login(request):
             messages.error(request, "Invalid username or password.")
             return render(request, 'login.html')
 
-  
+@login_required
 def dashboard(request):
       return render(request,'dashboard.html')
-
+@login_required
 def user_list(request):
     users = User.objects.all() 
     return render(request, 'alluser.html', {'users': users})
      
-
-def edit_user(request,id):      
+@login_required
+def edit_user(request,id):
+      
       if request.method == "POST":
         user  = User.objects.get(id=id)
         print(user)
@@ -78,7 +81,7 @@ def edit_user(request,id):
       
 
 
-
+@login_required
 def delete_user(request, id):
     if request.method == "GET":
         user = User.objects.get(id=id)
@@ -103,8 +106,12 @@ def add_user(request):
     return render(request,'add.html')
     
 
+@login_required
+def logout_user(request):
+    logout(request)
+    return redirect('login')
 
-
+     
      
      
      
