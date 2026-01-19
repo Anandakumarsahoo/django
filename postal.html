@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Postal Service</title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+
+    <table width="100%" border="0" cellpadding="15">
+        <tr>
+            <td align="left">
+                <a href="{% url 'dashboard' %}">← Back to Dashboard</a>
+            </td>
+            <td align="right">
+                <strong>User:</strong> {{ user.username }}
+            </td>
+        </tr>
+    </table>
+
+    <hr size="1" color="#ccc">
+
+    <div align="center" style="margin-top: 50px;">
+        <h2>Postal Service</h2>
+        <p>Please enter your details below:</p>
+        
+        <form method="POST" action="{% url 'postal' %}" style="background: #f9f9f9; padding: 20px; display: inline-block; border: 1px solid #ddd; border-radius: 8px;">
+            {% csrf_token %}
+            <label for="pincode">Enter Pincode:</label><br><br>
+            <input type="text" id="pincode" name="pincode" placeholder="e.g. 110001" required 
+                   style="padding: 10px; width: 200px; border: 1px solid #ccc; border-radius: 4px;">
+            <br><br>
+            <button type="submit" style="padding: 10px 20px; cursor: pointer; background-color: #4CAF50; color: white; border: none; border-radius: 4px;">Submit</button>
+            <button type="reset" style="padding: 10px 20px; cursor: pointer; background-color: #f44336; color: white; border: none; border-radius: 4px;">Reset</button>
+        </form>
+
+        
+    </div>
+
+    {% if result %}
+    <div style="margin-top: 30px; text-align: left; display: inline-block; width: 80%; border-top: 2px solid #eee; padding-top: 20px;">
+        
+        {% for item in result %}
+            {% if item.Status == 'Success' %}
+                <h3 style="color: #4CAF50;">Found {{ item.Message }}</h3>
+                
+                <table border="1" cellpadding="10" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <tr style="background-color: #f2f2f2;">
+                        <th>Post Office Name</th>
+                        <th>Branch Type</th>
+                        <th>District</th>
+                        <th>State</th>
+                    </tr>
+                    {% for post in item.PostOffice %}
+                    <tr>
+                        <td>{{ post.Name }}</td>
+                        <td>{{ post.BranchType }}</td>
+                        <td>{{ post.District }}</td>
+                        <td>{{ post.State }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p style="color: red; font-weight: bold;">Error: {{ item.Message|default:"Invalid Pincode or Service Down" }}</p>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+{% elif request.method == "POST" %}
+    <p style="color: red; margin-top: 20px;">The postal service is currently unavailable. Please try again later.</p>
+{% endif %}
+
+</body>
+</html>
